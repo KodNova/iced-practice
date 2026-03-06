@@ -1,5 +1,6 @@
-use iced::widget::{column, button, text};
+#![windows_subsystem = "windows"]
 use iced::Element;
+use iced::widget::{button, column, text};
 #[derive(Default)]
 struct Counter {
     value: i64,
@@ -12,7 +13,7 @@ enum Message {
 }
 
 impl Counter {
-    fn update (&mut self, message: Message) {
+    fn update(&mut self, message: Message) {
         match message {
             Message::Increment => {
                 self.value += 1;
@@ -24,17 +25,15 @@ impl Counter {
     }
 
     fn view(&self) -> Element<'_, Message> {
-
-
-column![
-    button("+").on_press(Message::Increment),
-    text(self.value),
-    button("-").on_press(Message::Decrement),
-].into()
-
+        column![
+            button("+").on_press(Message::Increment),
+            text(self.value),
+            button("-").on_press(Message::Decrement),
+        ]
+        .into()
     }
 }
 
-fn  main() -> iced::Result {
-iced::run(Counter::update, Counter::view)
+fn main() -> iced::Result {
+    iced::run(Counter::update, Counter::view)
 }
