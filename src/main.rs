@@ -1,6 +1,6 @@
 #![windows_subsystem = "windows"]
 use iced::Element;
-use iced::widget::{button, column, row, text};
+use iced::widget::{button, column, container, row, text, tooltip};
 #[derive(Default)]
 struct Counter {
     value: i64,
@@ -43,16 +43,20 @@ impl Counter {
     fn view(&self) -> Element<'_, Message> {
         row![
             column![
-                text("add one"),
                 text("one"),
                 button("+").on_press(Message::Increment),
                 text(self.value),
                 button("-").on_press(Message::Decrement),
             ],
             column![
-                text("add three"),
                 text("three"),
-                button("+").on_press(Message::Increment3),
+                tooltip(
+                    button("+").on_press(Message::Increment3),
+                    container("increase by 3")
+                        .padding(10)
+                        .style(container::rounded_box),
+                    tooltip::Position::Bottom,
+                ),
                 text(self.value),
                 button("-").on_press(Message::Decrement3),
             ],
